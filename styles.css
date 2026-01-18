@@ -344,6 +344,72 @@ body, html {
     50% { opacity: 0.5; }
 }
 
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+    animation: scrollFadeIn 2s ease-in-out 1s forwards;
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+}
+
+.scroll-indicator:hover {
+    transform: translateX(-50%) translateY(5px);
+}
+
+.scroll-text {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: rgba(0, 255, 255, 0.8);
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.scroll-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #00ffff;
+    animation: scrollBounce 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+}
+
+.scroll-arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes scrollFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+@keyframes scrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(10px);
+    }
+}
+
 /* Domains Section */
 .domains-section {
     position: relative;
@@ -391,11 +457,23 @@ body, html {
 
 .domains-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
     gap: 30px;
-    max-width: 1200px;
+    max-width: 1400px;
     width: 100%;
     padding: 0 20px;
+}
+
+@media (max-width: 1200px) {
+    .domains-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .domains-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .domain-card {
@@ -602,6 +680,19 @@ body, html {
     .sparkles-container {
         width: 100%;
         height: 100px;
+    }
+    
+    .scroll-indicator {
+        bottom: 30px;
+    }
+    
+    .scroll-text {
+        font-size: 0.65rem;
+    }
+    
+    .scroll-arrow {
+        width: 32px;
+        height: 32px;
     }
     
     .countdown-title {

@@ -274,4 +274,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const targetDate = new Date();
     targetDate.setDate(targetDate.getDate() + 3);
     new CountdownTimer(targetDate);
+    
+    // Scroll indicator click handler
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', () => {
+            const domainsSection = document.querySelector('.domains-section');
+            if (domainsSection) {
+                domainsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+        
+        // Hide scroll indicator on scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (currentScroll > 100) {
+                scrollIndicator.style.opacity = '0';
+                scrollIndicator.style.pointerEvents = 'none';
+            } else {
+                scrollIndicator.style.opacity = '1';
+                scrollIndicator.style.pointerEvents = 'auto';
+            }
+            
+            lastScroll = currentScroll;
+        });
+    }
 });
