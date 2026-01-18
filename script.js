@@ -270,9 +270,25 @@ document.addEventListener('DOMContentLoaded', () => {
         new IconCloud('iconCloud');
     }, 100);
     
-    // Set countdown to 3 days from now
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 3);
+    // Initialize countdown timer with persistent target date
+    // Check if target date exists in localStorage
+    let targetDate;
+    const storedTargetDate = localStorage.getItem('auditionTargetDate');
+    
+    if (storedTargetDate) {
+        // Use existing target date from localStorage
+        targetDate = new Date(parseInt(storedTargetDate));
+    } else {
+        // Set new target date: 2 days and 12 hours from now
+        targetDate = new Date();
+        const daysInMs = 2 * 24 * 60 * 60 * 1000; // 2 days
+        const hoursInMs = 12 * 60 * 60 * 1000; // 12 hours
+        targetDate = new Date(targetDate.getTime() + daysInMs + hoursInMs);
+        
+        // Store in localStorage so it persists across refreshes
+        localStorage.setItem('auditionTargetDate', targetDate.getTime().toString());
+    }
+    
     new CountdownTimer(targetDate);
     
     // Scroll indicator click handler
