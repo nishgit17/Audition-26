@@ -270,24 +270,17 @@ document.addEventListener('DOMContentLoaded', () => {
         new IconCloud('iconCloud');
     }, 100);
     
-    // Initialize countdown timer with persistent target date
-    // Check if target date exists in localStorage
-    let targetDate;
-    const storedTargetDate = localStorage.getItem('auditionTargetDate');
+    // Clear any old localStorage timer data (cleanup)
+    localStorage.removeItem('auditionTargetDate');
     
-    if (storedTargetDate) {
-        // Use existing target date from localStorage
-        targetDate = new Date(parseInt(storedTargetDate));
-    } else {
-        // Set new target date: 2 days and 12 hours from now
-        targetDate = new Date();
-        const daysInMs = 2 * 24 * 60 * 60 * 1000; // 2 days
-        const hoursInMs = 12 * 60 * 60 * 1000; // 12 hours
-        targetDate = new Date(targetDate.getTime() + daysInMs + hoursInMs);
-        
-        // Store in localStorage so it persists across refreshes
-        localStorage.setItem('auditionTargetDate', targetDate.getTime().toString());
-    }
+    // Initialize countdown timer - January 21st, 2026 at 12:00 PM IST
+    // IST is UTC+5:30, so 12:00 PM IST = 6:30 AM UTC
+    const targetDate = new Date('2026-01-21T12:00:00+05:30');
+    
+    console.log('Target Date (IST):', targetDate.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+    console.log('Target Date (UTC):', targetDate.toUTCString());
+    console.log('Current Date:', new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }));
+    console.log('Time remaining (ms):', targetDate.getTime() - new Date().getTime());
     
     new CountdownTimer(targetDate);
     
